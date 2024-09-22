@@ -1,5 +1,4 @@
-import { Box } from "@chakra-ui/layout";
-
+import { Box, Text } from "@chakra-ui/react"; // Import Text from Chakra UI
 import SingleChat from "./SingleChat";
 import { ChatState } from "../Context/ChatProvider";
 
@@ -17,7 +16,16 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       height="98%"
       borderRadius="lg"
       borderWidth="1px"
+      boxShadow="lg" // Adding a shadow for better depth
     >
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        color="teal.500" // Teal color for a fresh look
+        mb={4} // Margin bottom for spacing
+      >
+        Chatbox
+      </Text>
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </Box>
   );

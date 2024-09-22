@@ -8,8 +8,8 @@ import {
   TabPanels,
   Tabs,
   Text,
+  keyframes,
 } from "@chakra-ui/react";
-
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -23,6 +23,15 @@ const Homepage = () => {
     if (user) history.push("/chats");
   }, [history]);
 
+  // Define a keyframes animation for color changing
+  const colorChange = keyframes`
+    0% { color: #FF0080; }
+    25% { color: #7928CA; }
+    50% { color: #FF8C00; }
+    75% { color: #2D3748; }
+    100% { color: #FF0080; }
+  `;
+
   return (
     <Container maxW="xl" centerContent mb="20px">
       <Box
@@ -35,7 +44,12 @@ const Homepage = () => {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="3xl" fontFamily="Work Sans" color="black">
+        <Text
+          fontSize="4xl"
+          fontFamily="Work Sans"
+          animation={`${colorChange} 5s ease-in-out infinite`} // Apply the animation
+          fontWeight="bold" // Make the text bold
+        >
           TwistChat
         </Text>
       </Box>
@@ -49,8 +63,8 @@ const Homepage = () => {
       >
         <Tabs variant="soft-rounded">
           <TabList mb="1px">
-            <Tab width="20%">Login</Tab>
-            <Tab width="20%">Sign Up</Tab>
+            <Tab width="50%">Login</Tab>
+            <Tab width="50%">Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>

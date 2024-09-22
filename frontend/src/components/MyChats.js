@@ -17,7 +17,6 @@ const MyChats = ({ fetchAgain }) => {
   const toast = useToast();
 
   const fetchChats = async () => {
-    // console.log(user._id);
     try {
       const config = {
         headers: {
@@ -26,12 +25,11 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      console.log(data);
       setChats(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the chats",
+        title: "Error Occurred!",
+        description: "Failed to load the chats.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -50,29 +48,33 @@ const MyChats = ({ fetchAgain }) => {
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
-      p={1.5}
-      bg="white"
+      p={3} // Adjusted padding for better spacing
+      bg="gray.50" // Updated background color for a subtle look
       w={{ base: "80%", md: "30%" }}
       h={{ base: "100%", md: "98%" }}
       borderRadius="lg"
       borderWidth="1px"
+      boxShadow="lg" // Added shadow for depth
     >
       <Box
-        pb={2}
-        px={2}
-        fontSize={{ base: "20px", md: "30px" }}
+        pb={3}
+        px={4}
+        fontSize={{ base: "22px", md: "28px" }}
         fontFamily="Work sans"
         display="flex"
         w="100%"
         justifyContent="space-between"
         alignItems="center"
+        color="teal.600" // Updated text color
       >
         My Chats
         <GroupChatModal>
           <Button
             display="flex"
-            fontSize={{ base: "15px", md: "10px", lg: "12px" }}
+            fontSize={{ base: "14px", md: "12px", lg: "14px" }}
             rightIcon={<AddIcon />}
+            colorScheme="teal" // Changed button color
+            variant="solid" // Solid button for better visibility
           >
             Create a group
           </Button>
@@ -82,11 +84,12 @@ const MyChats = ({ fetchAgain }) => {
         display="flex"
         flexDir="column"
         p={3}
-        bg="#F8F8F8"
+        bg="white"
         w="100%"
         h="90%"
         borderRadius="lg"
         overflowY="hidden"
+        boxShadow="md" // Added shadow inside the chat list box
       >
         {chats ? (
           <Stack overflowY="scroll">
@@ -94,21 +97,23 @@ const MyChats = ({ fetchAgain }) => {
               <Box
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                bg={selectedChat === chat ? "teal.400" : "gray.100"}
                 color={selectedChat === chat ? "white" : "black"}
-                px={2}
+                px={3}
                 py={2}
                 borderRadius="lg"
                 key={chat._id}
+                transition="background-color 0.2s ease" // Added transition for smooth color change
+                _hover={{ bg: selectedChat === chat ? "teal.500" : "gray.200" }} // Added hover effect
               >
-                <Text>
+                <Text fontWeight="bold">
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Text>
                 {chat.latestMessage && (
-                  <Text fontSize="xs">
-                    <b>{chat.latestMessage.sender.name} : </b>
+                  <Text fontSize="sm" color="gray.600">
+                    <b>{chat.latestMessage.sender.name}:</b>{" "}
                     {chat.latestMessage.content.length > 50
                       ? chat.latestMessage.content.substring(0, 51) + "..."
                       : chat.latestMessage.content}
